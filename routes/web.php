@@ -27,6 +27,8 @@ Route::post('/projects', 'ProjectController@create')->name('createProject');
 Route::patch('/projects/{project}', 'ProjectController@update')->name('updateProject');
 Route::delete('/projects/{project}', 'ProjectController@delete')->name('deleteProject');
 
+Route::get('/application', 'ApplicationController@index')->name('applications');
+
 // Route::get('/message', function(){
 // 	MessageWasSent::dispatch();
 // });
