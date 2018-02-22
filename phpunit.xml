@@ -23,8 +23,11 @@
         </whitelist>
     </filter>
     <php>
+         <env name="APP_KEY" value="base64:y2aFgA/ex+6MntpYOa0l69VS2ZyCO9/ihoFPlvUZTjI="/>
         <env name="APP_ENV" value="testing"/>
         <env name="CACHE_DRIVER" value="array"/>
+        <env name="DB_CONNECTION" value="sqlite"/>
+        <env name="DB_DATABASE" value=":memory:"/>
         <env name="SESSION_DRIVER" value="array"/>
         <env name="QUEUE_DRIVER" value="sync"/>
     </php>

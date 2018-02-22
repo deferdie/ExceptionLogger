@@ -20,6 +20,13 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/message', function(){
-	MessageWasSent::dispatch();
-});
+
+Route::get('/projects', 'ProjectController@index')->name('projects');
+Route::get('/projects/{project}', 'ProjectController@show')->name('showProject');
+Route::post('/projects', 'ProjectController@create')->name('createProject');
+Route::patch('/projects/{project}', 'ProjectController@update')->name('updateProject');
+Route::delete('/projects/{project}', 'ProjectController@delete')->name('deleteProject');
+
+// Route::get('/message', function(){
+// 	MessageWasSent::dispatch();
+// });
