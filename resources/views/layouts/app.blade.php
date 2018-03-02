@@ -34,6 +34,11 @@
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
+
+        {{--  Socket.io  --}}
+        @if(env('BROADCAST_DRIVER') == 'redis')
+            <script src="https://cdn.socket.io/socket.io-1.3.5.js" />
+        @endif
     </head>
     <body>
         <div id="app">
