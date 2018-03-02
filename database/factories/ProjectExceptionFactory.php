@@ -10,7 +10,6 @@ $factory->define(App\ProjectException::class, function (Faker $faker) {
         },
         'file' => '/file/path',
         'message' => $faker->paragraph(2),
-        'description' => $faker->paragraph(2),
         'browser' => 'chrome',
         'os' => 'osx',
         'request_url' => '/request_url',
@@ -19,7 +18,6 @@ $factory->define(App\ProjectException::class, function (Faker $faker) {
         'level' => 'error',
         'line_number' => 200,
         'status_code' => 404,
-        'code' => 0,
         'headers' => 'some headers',
     ];
 });
