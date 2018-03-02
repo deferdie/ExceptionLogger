@@ -16,6 +16,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\MessageWasSent' => [
             'App\Listeners\SendMessageToUser',
         ],
+        'App\Events\ExceptionWasRaised' => [
+            'App\Listeners\BroadcastExceptionWasRaisedRealTime'
+        ]
     ];
 
     /**

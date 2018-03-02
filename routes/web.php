@@ -35,6 +35,5 @@ Route::get('/application', 'ApplicationController@index')->name('applications');
 // ExceptionLog
 Route::get('/exceptions', 'ProjectExceptionController@index')->name('exceptionLog');
 
-// Route::get('/message', function(){
-// 	MessageWasSent::dispatch();
-// });
+//Realtime
+Route::get('/realtime/exceptions', 'RealtimeController@index')->name('realtime');

@@ -2,7 +2,7 @@
     <div class="sidebar-nav navbar-collapse">
         <ul class="nav" id="side-menu">
             <li>
-                <a href="#realtime"><i class="fa fa-dashboard fa-fw"></i> Realtime</a>
+                <a href="{{route('realtime')}}"><i class="fa fa-space-shuttle fa-fw"></i> realtime</a>
             </li>
 
             <li>
