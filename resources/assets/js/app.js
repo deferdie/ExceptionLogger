@@ -17,6 +17,12 @@ Vue.component(
     require('./components/passport/PersonalAccessTokens.vue')
 );
 
+//Realtime
+Vue.component(
+    'exception-realtime',
+    require('./components/Exception/exception-real-time.vue')
+);
+
 const app = new Vue({
     el: '#app'
 });
