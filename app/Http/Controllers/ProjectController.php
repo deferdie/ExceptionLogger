@@ -23,8 +23,13 @@ class ProjectController extends Controller
     {
     	return view('project.show', ['project' => $project]);
     }
+	
+	public function create()
+    {
+    	return view('project.create');
+    }
 
-    public function create(Request $request)
+    public function store(Request $request)
     {
     	$this->validate($request, [
     		'name' => 'required|min:2'

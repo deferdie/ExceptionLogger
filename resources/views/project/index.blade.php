@@ -13,6 +13,7 @@
 		            <th>Project ID #</th>
 		            <th>Project Name</th>
 		            <th>Status</th>
+		            <th>Colour</th>
 		            <th>Actions</th>
 		        </tr>
 		    </thead>
@@ -22,6 +23,7 @@
 		                <td>{{$project->id}}</td>
 		                <td>{{$project->name}}</td>
 		                <td>{{$project->status}}</td>
+		                <td>{{$project->colour}}</td>
 		                <td>Action</td>
 		            </tr>
 		    	@endforeach

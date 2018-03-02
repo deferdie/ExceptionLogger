@@ -48,7 +48,7 @@ class ProjectTest extends TestCase
     	
     	$project = factory('App\Project')->make(['user_id' => $user->id]);
 
-        $this->post(route('createProject'), $project->toArray())
+        $this->post(route('storeProject'), $project->toArray())
         	->assertStatus(302);
 
         $this->get(route('projects'))
@@ -57,6 +57,16 @@ class ProjectTest extends TestCase
         $this->assertDatabaseHas('projects', [
         	'name' => $project->name
         ]);
+    }
+    
+    /** @test */
+    public function authenticated_users_can_view_the_create_page()
+    {
+    	$this->actingAs(factory('App\User')->create());
+
+        $this->get(route('createProject'))
+            ->assertSee('Create Project')
+            ->assertStatus(200);
     }
 
     /** @test */
