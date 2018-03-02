@@ -15,6 +15,10 @@
                     <li>
                         <a href="{{route('projects')}}">Manage projects</a>
                     </li>
+                    
+                    <li>
+                        <a href="{{route('createProject')}}">Create project</a>
+                    </li>
 
                     <li>
                         <a href="{{route('applications')}}">Manage application</a>
