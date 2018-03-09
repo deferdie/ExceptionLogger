@@ -64,7 +64,7 @@
                             </td>
                             <td>
                                 <span v-show="!editMode">
-                                    {{statusCode.notification.slack_sms}}
+                                    {{statusCode.notification.sms_number}}
                                     <span class="label label-primary" v-show="statusCode.notification.can_sms">Enabled</span>
                                     <span class="label label-danger" v-show="!statusCode.notification.can_sms">Disabled</span>
                                 </span>

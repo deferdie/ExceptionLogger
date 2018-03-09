@@ -41082,7 +41082,7 @@ var render = function() {
                           [
                             _vm._v(
                               "\n                                " +
-                                _vm._s(statusCode.notification.slack_sms) +
+                                _vm._s(statusCode.notification.sms_number) +
                                 "\n                                "
                             ),
                             _c(

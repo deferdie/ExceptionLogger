@@ -33,4 +33,9 @@ class StatusCode extends Model
     {
         return $this->notification->slack_channel;
     }
+
+    public function routeNotificationForNexmo($notification)
+    {
+        return $this->notification->sms_number;
+    }
 }

@@ -7,6 +7,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackMessage;
+use Illuminate\Notifications\Messages\NexmoMessage;
 
 class ExceptionRaisedNotification extends Notification
 {
@@ -32,7 +33,7 @@ class ExceptionRaisedNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail', 'slack'];
+        return ['mail', 'slack', 'nexmo'];
     }
 
     /**
@@ -56,9 +57,21 @@ class ExceptionRaisedNotification extends Notification
 
     public function toSlack($notifiable)
     {
-        return (new SlackMessage)
-            ->error()
-            ->content('Whoops! Something went wrong.');
+        if($this->projectStatusCode->notification->can_slack)
+        {
+            return (new SlackMessage)
+                ->error()
+                ->content('Whoops! Something went wrong.');
+        }
+    }
+
+    public function toNexmo($notifiable)
+    {
+        if($this->projectStatusCode->notification->can_sms)
+        {
+            return (new NexmoMessage)
+                ->content('You have an error!!');
+        }
     }
 
     /**
