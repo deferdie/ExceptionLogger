@@ -40552,8 +40552,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 'canSlack': statusCode.notification.can_slack,
                 'canSms': statusCode.notification.can_sms,
                 'email': statusCode.notification.email,
-                'slack': statusCode.notification.slack,
-                'sms': statusCode.notification.sms
+                'slack': statusCode.notification.slack_channel,
+                'sms': statusCode.notification.sms_number
             }).then(function (response) {
                 console.log(response.data);
                 statusCode = response.data;

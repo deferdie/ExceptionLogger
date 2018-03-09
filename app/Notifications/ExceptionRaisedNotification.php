@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Messages\SlackMessage;
 
 class ExceptionRaisedNotification extends Notification
 {
@@ -31,7 +32,7 @@ class ExceptionRaisedNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['mail', 'slack'];
     }
 
     /**
@@ -51,6 +52,13 @@ class ExceptionRaisedNotification extends Notification
                 ->line('Thank you for using our application!' . $this->projectStatusCode->code);
         }
         
+    }
+
+    public function toSlack($notifiable)
+    {
+        return (new SlackMessage)
+            ->error()
+            ->content('Whoops! Something went wrong.');
     }
 
     /**

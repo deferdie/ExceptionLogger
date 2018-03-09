@@ -28,4 +28,9 @@ class StatusCode extends Model
     {
         return $this->notification->email;
     }
+
+    public function routeNotificationForSlack($notification)
+    {
+        return $this->notification->slack_channel;
+    }
 }
