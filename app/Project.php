@@ -12,4 +12,9 @@ class Project extends Model
     {
         return $this->hasMany(ProjectException::class);
     }
+
+    public function statusCodes()
+    {
+        return $this->hasMany(StatusCode::class);
+    }
 }

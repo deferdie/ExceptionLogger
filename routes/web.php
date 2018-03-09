@@ -29,6 +29,10 @@ Route::post('/projects', 'ProjectController@store')->name('storeProject');
 Route::patch('/projects/{project}', 'ProjectController@update')->name('updateProject');
 Route::delete('/projects/{project}', 'ProjectController@delete')->name('deleteProject');
 
+// Status Codes
+Route::post('/project/{project}/statusCode', 'StatusCodeController@store')->name('storeStatusCode');
+
+
 // Applications
 Route::get('/application', 'ApplicationController@index')->name('applications');
 

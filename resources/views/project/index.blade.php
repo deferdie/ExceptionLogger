@@ -24,7 +24,9 @@
 		                <td>{{$project->name}}</td>
 		                <td>{{$project->status}}</td>
 		                <td>{{$project->colour}}</td>
-		                <td>Action</td>
+		                <td>
+							<a href="{{route('showProject', $project)}}">Manage</a>
+						</td>
 		            </tr>
 		    	@endforeach
 		    </tbody>

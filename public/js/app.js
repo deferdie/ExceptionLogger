@@ -1386,7 +1386,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(13);
-module.exports = __webpack_require__(61);
+module.exports = __webpack_require__(64);
 
 
 /***/ }),
@@ -1403,8 +1403,11 @@ Vue.component('passport-authorized-clients', __webpack_require__(48));
 
 Vue.component('passport-personal-access-tokens', __webpack_require__(53));
 
-//Realtime
+// Realtime
 Vue.component('exception-realtime', __webpack_require__(58));
+
+// Status code
+Vue.component('status-code', __webpack_require__(61));
 
 var app = new Vue({
     el: '#app'
@@ -40316,6 +40319,428 @@ if (false) {
 
 /***/ }),
 /* 61 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(62)
+/* template */
+var __vue_template__ = __webpack_require__(63)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\StatusCodes\\status-code.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-3e83a339", Component.options)
+  } else {
+    hotAPI.reload("data-v-3e83a339", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 62 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['createdstatuscodes', 'project'],
+
+    mounted: function mounted() {
+        this.statusCodes = this.createdstatuscodes;
+    },
+
+
+    data: function data() {
+        return {
+            statusCodes: null,
+            creatingStatus: false,
+            newStatus: { code: null, timeToNotify: null, errors: null }
+        };
+    },
+
+    methods: {
+        createStatus: function createStatus() {
+            var self = this;
+
+            axios.post('/project/' + self.project + '/statusCode', {
+                code: self.newStatus.code,
+                timeToNotify: self.newStatus.timeToNotify,
+                errors: self.newStatus.errors
+            }).then(function (response) {
+                self.statusCodes = response.data;
+            }).catch(function (error) {
+                console.log(error);
+            });
+
+            self.newStatus.code = null;
+            self.newStatus.timeToNotify = null;
+            self.newStatus.errors = null;
+            self.creatingStatus = false;
+        }
+    }
+});
+
+/***/ }),
+/* 63 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("h4", [_vm._v("Manage project status codes")]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-4" }, [
+        _c(
+          "table",
+          {
+            staticClass: "table table-striped table-hover table-bordered",
+            staticStyle: { "margin-bottom": "0px" }
+          },
+          [
+            _vm._m(0),
+            _vm._v(" "),
+            _c(
+              "tbody",
+              [
+                _c(
+                  "tr",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.statusCodes == null,
+                        expression: "statusCodes == null"
+                      }
+                    ]
+                  },
+                  [
+                    _c("td", [
+                      _vm._v(
+                        "\n                            No status codes are being watched. (Click To add)\n                        "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("td"),
+                    _vm._v(" "),
+                    _c("td")
+                  ]
+                ),
+                _vm._v(" "),
+                _vm._l(_vm.statusCodes, function(statusCode) {
+                  return _c(
+                    "tr",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.statusCodes != null,
+                          expression: "statusCodes != null"
+                        }
+                      ]
+                    },
+                    [
+                      _c("td", [
+                        _vm._v(
+                          "\n                            " +
+                            _vm._s(statusCode.code) +
+                            "\n                        "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          "\n                            " +
+                            _vm._s(statusCode.errors) +
+                            "\n                        "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          "\n                            " +
+                            _vm._s(statusCode.timeToNotify) +
+                            "\n                        "
+                        )
+                      ])
+                    ]
+                  )
+                })
+              ],
+              2
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: !_vm.creatingStatus,
+                expression: "!creatingStatus"
+              }
+            ],
+            staticClass: "btn btn-block btn-primary",
+            staticStyle: { "border-radius": "0px" },
+            on: {
+              click: function($event) {
+                _vm.creatingStatus = true
+              }
+            }
+          },
+          [_vm._v("\n                Add Status\n            ")]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.creatingStatus,
+                expression: "creatingStatus"
+              }
+            ],
+            staticClass: "form"
+          },
+          [
+            _c("div", { staticClass: "col-md-4 form-group" }, [
+              _c("label", { attrs: { for: "newStatus" } }, [
+                _vm._v("Status Code")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.newStatus.code,
+                    expression: "newStatus.code"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "text", id: "newStatus" },
+                domProps: { value: _vm.newStatus.code },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.newStatus, "code", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-4" }, [
+              _c("label", { attrs: { for: "errors" } }, [_vm._v("Errors")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.newStatus.errors,
+                    expression: "newStatus.errors"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "number", id: "errors" },
+                domProps: { value: _vm.newStatus.errors },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.newStatus, "errors", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-4" }, [
+              _c("label", { attrs: { for: "notifyTime" } }, [
+                _vm._v("Time to be notified after errors has occoured")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.newStatus.timeToNotify,
+                    expression: "newStatus.timeToNotify"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "number", id: "notifyTime" },
+                domProps: { value: _vm.newStatus.timeToNotify },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.newStatus, "timeToNotify", $event.target.value)
+                  }
+                }
+              })
+            ])
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.creatingStatus,
+                expression: "creatingStatus"
+              }
+            ],
+            staticClass: "btn btn-block btn-primary",
+            staticStyle: { "border-radius": "0px" },
+            on: {
+              click: function($event) {
+                _vm.createStatus()
+              }
+            }
+          },
+          [_vm._v("\n                Save\n            ")]
+        )
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("td", [_vm._v("Status")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Errors")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Time to notify")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-3e83a339", module.exports)
+  }
+}
+
+/***/ }),
+/* 64 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
