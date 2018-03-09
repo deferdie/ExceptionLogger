@@ -20,6 +20,7 @@ class ProjectExceptionController extends Controller
 	
 	public function store(Request $request)
     {
+		\Log::info('Request Recieved');
 		$event = (object) json_decode($request->event_content);
 		
 		$project = Project::whereId($event->project_id)->first();
@@ -43,7 +44,7 @@ class ProjectExceptionController extends Controller
 			
 		}catch(\Exception $e)
 		{
-			die($e);
+			\Log::info($e);
 		}
     }
 }

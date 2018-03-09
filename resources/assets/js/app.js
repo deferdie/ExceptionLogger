@@ -17,10 +17,16 @@ Vue.component(
     require('./components/passport/PersonalAccessTokens.vue')
 );
 
-//Realtime
+// Realtime
 Vue.component(
     'exception-realtime',
     require('./components/Exception/exception-real-time.vue')
+);
+
+// Status code
+Vue.component(
+    'status-code',
+    require('./components/StatusCodes/status-code.vue')
 );
 
 const app = new Vue({

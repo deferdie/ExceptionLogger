@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+ use  Carbon\Carbon;
 
 class ProjectException extends Model
 {
@@ -18,4 +19,19 @@ class ProjectException extends Model
         'server_name',
         'enviroment', 
     ];
+
+    public function project()
+    {
+        return $this->belongsTo(Project::class);
+    }
+
+    public function scopeRecent($query, $interval)
+    {
+        return $query->where('created_at', '>=', Carbon::now()->subMinute($interval)->toDateTimeString());
+    }
+
+    public function scopeNotified($query, $status)
+    {
+        return $query->where('notified', $status);
+    }
 }
