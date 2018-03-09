@@ -40434,6 +40434,61 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['createdstatuscodes', 'project'],
@@ -40447,7 +40502,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             statusCodes: null,
             creatingStatus: false,
-            newStatus: { code: null, timeToNotify: null, errors: null }
+            newStatus: {
+                code: null,
+                timeToNotify: null,
+                errors: null,
+                canEmail: false,
+                canSlack: false,
+                canSms: false,
+                email: null,
+                slack: null,
+                sms: null
+            },
+            editMode: false
         };
     },
 
@@ -40469,6 +40535,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             self.newStatus.timeToNotify = null;
             self.newStatus.errors = null;
             self.creatingStatus = false;
+        },
+
+        editStatus: function editStatus(statusCode) {
+            var self = this;
+
+            this.editMode = true;
+
+            console.log(statusCode);
+
+            axios.patch('/project/' + self.project + '/statusCode/' + statusCode.id, {
+                'code': statusCode.code,
+                'timeToNotify': statusCode.timeToNotify,
+                'errors': statusCode.errors,
+                'canEmail': statusCode.notification.can_email,
+                'canSlack': statusCode.notification.can_slack,
+                'canSms': statusCode.notification.can_sms,
+                'email': statusCode.notification.email,
+                'slack': statusCode.notification.slack,
+                'sms': statusCode.notification.sms
+            }).then(function (response) {
+                console.log(response.data);
+                statusCode = response.data;
+            }).catch(function (error) {
+                console.log(error);
+            });
+
+            this.editMode = false;
         }
     }
 });
@@ -40485,7 +40578,7 @@ var render = function() {
     _c("h4", [_vm._v("Manage project status codes")]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-4" }, [
+      _c("div", { staticClass: "col-md-12" }, [
         _c(
           "table",
           {
@@ -40538,26 +40631,665 @@ var render = function() {
                     },
                     [
                       _c("td", [
-                        _vm._v(
-                          "\n                            " +
-                            _vm._s(statusCode.code) +
-                            "\n                        "
+                        _c(
+                          "span",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: !_vm.editMode,
+                                expression: "!editMode"
+                              }
+                            ]
+                          },
+                          [_vm._v(_vm._s(statusCode.code))]
+                        ),
+                        _vm._v(" "),
+                        _vm.editMode
+                          ? _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: statusCode.code,
+                                  expression: "statusCode.code"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { type: "text" },
+                              domProps: { value: statusCode.code },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    statusCode,
+                                    "code",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          : _vm._e()
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c(
+                          "span",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: !_vm.editMode,
+                                expression: "!editMode"
+                              }
+                            ]
+                          },
+                          [_vm._v(_vm._s(statusCode.errors))]
+                        ),
+                        _vm._v(" "),
+                        _vm.editMode
+                          ? _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: statusCode.errors,
+                                  expression: "statusCode.errors"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { type: "text" },
+                              domProps: { value: statusCode.errors },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    statusCode,
+                                    "errors",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          : _vm._e()
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c(
+                          "span",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: !_vm.editMode,
+                                expression: "!editMode"
+                              }
+                            ]
+                          },
+                          [_vm._v(_vm._s(statusCode.timeToNotify))]
+                        ),
+                        _vm._v(" "),
+                        _vm.editMode
+                          ? _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: statusCode.timeToNotify,
+                                  expression: "statusCode.timeToNotify"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { type: "text" },
+                              domProps: { value: statusCode.timeToNotify },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    statusCode,
+                                    "timeToNotify",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          : _vm._e()
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c(
+                          "span",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: !_vm.editMode,
+                                expression: "!editMode"
+                              }
+                            ]
+                          },
+                          [
+                            _vm._v(
+                              "\n                                " +
+                                _vm._s(statusCode.notification.email) +
+                                "\n                                "
+                            ),
+                            _c(
+                              "span",
+                              {
+                                directives: [
+                                  {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value: statusCode.notification.can_email,
+                                    expression:
+                                      "statusCode.notification.can_email"
+                                  }
+                                ],
+                                staticClass: "label label-primary"
+                              },
+                              [_vm._v("Enabled")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "span",
+                              {
+                                directives: [
+                                  {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value: !statusCode.notification.can_email,
+                                    expression:
+                                      "!statusCode.notification.can_email"
+                                  }
+                                ],
+                                staticClass: "label label-danger"
+                              },
+                              [_vm._v("Disabled")]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: _vm.editMode,
+                                expression: "editMode"
+                              }
+                            ]
+                          },
+                          [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: statusCode.notification.can_email,
+                                  expression:
+                                    "statusCode.notification.can_email"
+                                }
+                              ],
+                              attrs: { type: "checkbox" },
+                              domProps: {
+                                checked: Array.isArray(
+                                  statusCode.notification.can_email
+                                )
+                                  ? _vm._i(
+                                      statusCode.notification.can_email,
+                                      null
+                                    ) > -1
+                                  : statusCode.notification.can_email
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = statusCode.notification.can_email,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = null,
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        (statusCode.notification.can_email = $$a.concat(
+                                          [$$v]
+                                        ))
+                                    } else {
+                                      $$i > -1 &&
+                                        (statusCode.notification.can_email = $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1)))
+                                    }
+                                  } else {
+                                    _vm.$set(
+                                      statusCode.notification,
+                                      "can_email",
+                                      $$c
+                                    )
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: statusCode.notification.email,
+                                  expression: "statusCode.notification.email"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { type: "text" },
+                              domProps: {
+                                value: statusCode.notification.email
+                              },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    statusCode.notification,
+                                    "email",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ]
                         )
                       ]),
                       _vm._v(" "),
                       _c("td", [
-                        _vm._v(
-                          "\n                            " +
-                            _vm._s(statusCode.errors) +
-                            "\n                        "
+                        _c(
+                          "span",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: !_vm.editMode,
+                                expression: "!editMode"
+                              }
+                            ]
+                          },
+                          [
+                            _vm._v(
+                              "\n                                " +
+                                _vm._s(statusCode.notification.slack_channel) +
+                                "\n                                "
+                            ),
+                            _c(
+                              "span",
+                              {
+                                directives: [
+                                  {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value: statusCode.notification.can_slack,
+                                    expression:
+                                      "statusCode.notification.can_slack"
+                                  }
+                                ],
+                                staticClass: "label label-primary"
+                              },
+                              [_vm._v("Enabled")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "span",
+                              {
+                                directives: [
+                                  {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value: !statusCode.notification.can_slack,
+                                    expression:
+                                      "!statusCode.notification.can_slack"
+                                  }
+                                ],
+                                staticClass: "label label-danger"
+                              },
+                              [_vm._v("Disabled")]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: _vm.editMode,
+                                expression: "editMode"
+                              }
+                            ]
+                          },
+                          [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: statusCode.notification.can_slack,
+                                  expression:
+                                    "statusCode.notification.can_slack"
+                                }
+                              ],
+                              attrs: { type: "checkbox" },
+                              domProps: {
+                                checked: Array.isArray(
+                                  statusCode.notification.can_slack
+                                )
+                                  ? _vm._i(
+                                      statusCode.notification.can_slack,
+                                      null
+                                    ) > -1
+                                  : statusCode.notification.can_slack
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = statusCode.notification.can_slack,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = null,
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        (statusCode.notification.can_slack = $$a.concat(
+                                          [$$v]
+                                        ))
+                                    } else {
+                                      $$i > -1 &&
+                                        (statusCode.notification.can_slack = $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1)))
+                                    }
+                                  } else {
+                                    _vm.$set(
+                                      statusCode.notification,
+                                      "can_slack",
+                                      $$c
+                                    )
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: statusCode.notification.slack_channel,
+                                  expression:
+                                    "statusCode.notification.slack_channel"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { type: "text" },
+                              domProps: {
+                                value: statusCode.notification.slack_channel
+                              },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    statusCode.notification,
+                                    "slack_channel",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ]
                         )
                       ]),
                       _vm._v(" "),
                       _c("td", [
-                        _vm._v(
-                          "\n                            " +
-                            _vm._s(statusCode.timeToNotify) +
-                            "\n                        "
+                        _c(
+                          "span",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: !_vm.editMode,
+                                expression: "!editMode"
+                              }
+                            ]
+                          },
+                          [
+                            _vm._v(
+                              "\n                                " +
+                                _vm._s(statusCode.notification.slack_sms) +
+                                "\n                                "
+                            ),
+                            _c(
+                              "span",
+                              {
+                                directives: [
+                                  {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value: statusCode.notification.can_sms,
+                                    expression:
+                                      "statusCode.notification.can_sms"
+                                  }
+                                ],
+                                staticClass: "label label-primary"
+                              },
+                              [_vm._v("Enabled")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "span",
+                              {
+                                directives: [
+                                  {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value: !statusCode.notification.can_sms,
+                                    expression:
+                                      "!statusCode.notification.can_sms"
+                                  }
+                                ],
+                                staticClass: "label label-danger"
+                              },
+                              [_vm._v("Disabled")]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: _vm.editMode,
+                                expression: "editMode"
+                              }
+                            ]
+                          },
+                          [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: statusCode.notification.can_sms,
+                                  expression: "statusCode.notification.can_sms"
+                                }
+                              ],
+                              attrs: { type: "checkbox" },
+                              domProps: {
+                                checked: Array.isArray(
+                                  statusCode.notification.can_sms
+                                )
+                                  ? _vm._i(
+                                      statusCode.notification.can_sms,
+                                      null
+                                    ) > -1
+                                  : statusCode.notification.can_sms
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = statusCode.notification.can_sms,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = null,
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        (statusCode.notification.can_sms = $$a.concat(
+                                          [$$v]
+                                        ))
+                                    } else {
+                                      $$i > -1 &&
+                                        (statusCode.notification.can_sms = $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1)))
+                                    }
+                                  } else {
+                                    _vm.$set(
+                                      statusCode.notification,
+                                      "can_sms",
+                                      $$c
+                                    )
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: statusCode.notification.sms_number,
+                                  expression:
+                                    "statusCode.notification.sms_number"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { type: "text" },
+                              domProps: {
+                                value: statusCode.notification.sms_number
+                              },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    statusCode.notification,
+                                    "sms_number",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c(
+                          "button",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: !_vm.editMode,
+                                expression: "!editMode"
+                              }
+                            ],
+                            staticClass: "btn btn-primary",
+                            on: {
+                              click: function($event) {
+                                _vm.editMode = true
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                                Edit\n                            "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: _vm.editMode,
+                                expression: "editMode"
+                              }
+                            ],
+                            staticClass: "btn btn-primary",
+                            on: {
+                              click: function($event) {
+                                _vm.editStatus(statusCode)
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                                Save\n                            "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: _vm.editMode,
+                                expression: "editMode"
+                              }
+                            ],
+                            staticClass: "btn btn-warning",
+                            on: {
+                              click: function($event) {
+                                _vm.editMode = false
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                                Cancel\n                            "
+                            )
+                          ]
                         )
                       ])
                     ]
@@ -40725,7 +41457,15 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("td", [_vm._v("Errors")]),
         _vm._v(" "),
-        _c("td", [_vm._v("Time to notify")])
+        _c("td", [_vm._v("Time to notify")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Notify By Email")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Notify By Slack")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Notify By Sms")]),
+        _vm._v(" "),
+        _c("td")
       ])
     ])
   }

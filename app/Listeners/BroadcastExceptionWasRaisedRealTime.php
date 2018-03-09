@@ -6,6 +6,7 @@ use App\Events\ExceptionWasRaised;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\ProjectException;
+use App\Notifications\ExceptionRaisedNotification;
 
 class BroadcastExceptionWasRaisedRealTime
 {
@@ -54,7 +55,13 @@ class BroadcastExceptionWasRaisedRealTime
 
             //Fire the notification email
             //$this->sendNotificationEmail($exception);
-            \Log::info('oidsjfoifoisdjfisod foisdjf');
+            \Log::info('Sending Notificatoin');
+            
+            // Check if we can notify by email
+            if($projectStatusCode->notification->can_email)
+            {
+                $projectStatusCode->notify(new ExceptionRaisedNotification);
+            }
         }
     }
 }

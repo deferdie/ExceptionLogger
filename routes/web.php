@@ -31,6 +31,7 @@ Route::delete('/projects/{project}', 'ProjectController@delete')->name('deletePr
 
 // Status Codes
 Route::post('/project/{project}/statusCode', 'StatusCodeController@store')->name('storeStatusCode');
+Route::patch('/project/{project}/statusCode/{statusCode}', 'StatusCodeController@update')->name('updateStatusCode');
 
 
 // Applications

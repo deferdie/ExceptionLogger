@@ -2,10 +2,13 @@
 
 namespace App;
 
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
 {
+    use Notifiable;
+
     protected $fillable = ['name', 'SCM', 'colour', 'status', 'user_id'];
 
     public function exceptions()
@@ -16,5 +19,10 @@ class Project extends Model
     public function statusCodes()
     {
         return $this->hasMany(StatusCode::class);
+    }
+
+    public function routeNotificationForMail($notification)
+    {
+        return 'deferdie@gmail.com';
     }
 }
