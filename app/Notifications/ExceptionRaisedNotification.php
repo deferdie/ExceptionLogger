@@ -11,14 +11,16 @@ class ExceptionRaisedNotification extends Notification
 {
     use Queueable;
 
+    public $projectStatusCode;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($projectStatusCode)
     {
-        //
+        $this->projectStatusCode = $projectStatusCode;
     }
 
     /**
@@ -40,10 +42,15 @@ class ExceptionRaisedNotification extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-                    ->line('An Exception has been raised')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+        if($this->projectStatusCode->notification->can_email)
+        {
+            return (new MailMessage)
+                ->line('An Exception has been raised')
+                ->action('Notification Action', url('/'))
+                ->line('Notification Action', url('/'))
+                ->line('Thank you for using our application!' . $this->projectStatusCode->code);
+        }
+        
     }
 
     /**

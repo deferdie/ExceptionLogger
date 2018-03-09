@@ -58,10 +58,8 @@ class BroadcastExceptionWasRaisedRealTime
             \Log::info('Sending Notificatoin');
             
             // Check if we can notify by email
-            if($projectStatusCode->notification->can_email)
-            {
-                $projectStatusCode->notify(new ExceptionRaisedNotification);
-            }
+            $projectStatusCode->notify(new ExceptionRaisedNotification($projectStatusCode));
+            
         }
     }
 }
