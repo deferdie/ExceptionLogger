@@ -29,19 +29,25 @@ class BroadcastExceptionWasRaisedRealTime
     public function handle(ExceptionWasRaised $event)
     {
         \Log::info('Handling');
-        $this->assess($event->exception);
-        // Check how may times that exception took place
-        // Given we have an exception 
-        // If that exception takes place more than the defined amount of times we send off notifications based on what the user has defined
+
+        $exception = ProjectException::whereId($event->internalExceptionToHandle)->first();
+
+        // Assess the error
+        $this->assess($exception);
     }
 
     public function assess(ProjectException $exception)
     {
         \Log::info('assessing');
-        \Log::info(json_encode($exception->toArray()));
+        \Log::info(json_encode($exception->status_code));
 
         $projectStatusCode = $exception->project->statusCodes()->where('code', $exception->status_code)->first();
 
+        if(!$projectStatusCode)
+        {   
+            // We should probally notify the admin that a new status code was detected
+            return;
+        }
 
         //Check the amount of time this exception occours in the time defined
         $exceptions = ProjectException::where('url', $exception->url)->recent($projectStatusCode->timeToNotify)->notified(false)->count();

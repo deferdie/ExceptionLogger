@@ -17,6 +17,7 @@ class ExceptionWasRaised implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $exception;
+    public $internalExceptionToHandle;
 
     /**
      * Create a new event instance.
@@ -25,7 +26,8 @@ class ExceptionWasRaised implements ShouldBroadcast
      */
     public function __construct(ProjectException $exception)
     {
-        $this->exception = $exception;
+        $this->exception = $exception->makeJson();
+        $this->internalExceptionToHandle = $exception->id;
     }
 
     /**

@@ -40,7 +40,7 @@
             let self = this;
 
             Echo.channel('exceptionChannel').listen('ExceptionWasRaised', (e) => {
-                self.exceptions.unshift(e.exception);
+                self.exceptions.unshift(JSON.parse(e.exception));
             });
         },
         mounted()

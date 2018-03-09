@@ -34,4 +34,20 @@ class ProjectException extends Model
     {
         return $query->where('notified', $status);
     }
+
+    public function makeJson()
+    {
+        $exception = [
+            'id' => $this->id, 
+            'project_id' => $this->project_id, 
+            'status_code' => $this->status_code, 
+            'url' => $this->url, 
+            'message' => $this->message, 
+            'line_number' => $this->line_number, 
+            'request_uri' => $this->request_uri, 
+            'server_name' => $this->server_name,
+        ];
+
+        return json_encode($exception);
+    }
 }

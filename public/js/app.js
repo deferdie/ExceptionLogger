@@ -40226,7 +40226,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var self = this;
 
         Echo.channel('exceptionChannel').listen('ExceptionWasRaised', function (e) {
-            self.exceptions.unshift(e.exception);
+            self.exceptions.unshift(JSON.parse(e.exception));
         });
     },
     mounted: function mounted() {
