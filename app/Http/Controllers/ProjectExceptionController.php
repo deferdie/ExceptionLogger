@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Events\ExceptionWasRaised;
+use App\Jobs\ProcessExceptionFromClient;
 use App\Project;
 
 class ProjectExceptionController extends Controller
@@ -20,7 +20,6 @@ class ProjectExceptionController extends Controller
 	
 	public function store(Request $request)
     {
-		\Log::info('Request Recieved');
 		$event = (object) json_decode($request->event_content);
 		
 		$project = Project::whereId($event->project_id)->first();
@@ -40,7 +39,7 @@ class ProjectExceptionController extends Controller
 			]);
 
 			//Dispatch notification
-			broadcast(new ExceptionWasRaised($exception));
+			ProcessExceptionFromClient::dispatch($exception);
 			
 		}catch(\Exception $e)
 		{
