@@ -18,11 +18,17 @@ class ProjectException extends Model
         'request_uri', 
         'server_name',
         'enviroment', 
+        'project_unique_exception_id', 
     ];
 
     public function project()
     {
         return $this->belongsTo(Project::class);
+    }
+
+    public function uniqueException()
+    {
+        return $this->hasOne(ProjectUniqueException::class);
     }
 
     public function scopeRecent($query, $interval)

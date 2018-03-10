@@ -26,6 +26,28 @@ class ExceptionWasRaised implements ShouldBroadcast
      */
     public function __construct(ProjectException $exception)
     {
+        // Check if the exception has a unique project exception
+        $uniqueCount = ProjectException::where('url', $exception->url)->first();
+        
+        if($uniqueCount->uniqueException != null)
+        {
+            $uniqueCount->uniqueException->count = $uniqueCount->uniqueException->count + 1;
+            $uniqueCount->uniqueException->save();
+
+            $exception->project_unique_exception_id = $uniqueCount->uniqueException->id;
+            $exception->save();
+            
+        }else{
+
+            // Create a new project exception id
+            $uniqueCount->uniqueException()->create([
+                'count' => 1
+            ]);
+
+            $exception->project_unique_exception_id = $uniqueCount->uniqueException->id;
+            $exception->save();
+        }
+
         $this->exception = $exception->makeJson();
         $this->internalExceptionToHandle = $exception->id;
     }
