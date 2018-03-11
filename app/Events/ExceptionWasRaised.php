@@ -11,6 +11,7 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 use App\ProjectException;
+use App\Http\Resources\ProjectExceptionResource;
 
 class ExceptionWasRaised implements ShouldBroadcast
 {
@@ -40,15 +41,16 @@ class ExceptionWasRaised implements ShouldBroadcast
         }else{
 
             // Create a new project exception id
-            $uniqueCount->uniqueException()->create([
-                'count' => 1
+            $uniqueId = $uniqueCount->uniqueException()->create([
+                'count' => 1,
+                'project_exception_id' => $uniqueCount->id
             ]);
 
-            $exception->project_unique_exception_id = $uniqueCount->uniqueException->id;
+            $exception->project_unique_exception_id =  $uniqueId->id;
             $exception->save();
         }
 
-        $this->exception = $exception->makeJson();
+        $this->exception = new ProjectExceptionResource(ProjectException::find($exception->id));
         $this->internalExceptionToHandle = $exception->id;
     }
 

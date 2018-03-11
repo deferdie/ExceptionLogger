@@ -1,5 +1,8 @@
 require('./bootstrap');
 
+let _ = require('lodash');
+
+
 window.Vue = require('vue');
 
 Vue.component(

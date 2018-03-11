@@ -21,6 +21,8 @@ class ProjectException extends Model
         'project_unique_exception_id', 
     ];
 
+    protected $with = ['uniqueException'];
+
     public function project()
     {
         return $this->belongsTo(Project::class);
@@ -28,7 +30,7 @@ class ProjectException extends Model
 
     public function uniqueException()
     {
-        return $this->hasOne(ProjectUniqueException::class);
+        return $this->hasOne(ProjectUniqueException::class, 'id', 'project_unique_exception_id');
     }
 
     public function scopeRecent($query, $interval)
@@ -45,7 +47,8 @@ class ProjectException extends Model
     {
         $exception = [
             'id' => $this->id, 
-            'project_id' => $this->project_id, 
+            'project_id' => $this->project_id,
+            'exception_count' => $this->uniqueException->count, 
             'status_code' => $this->status_code, 
             'url' => $this->url, 
             'message' => $this->message, 

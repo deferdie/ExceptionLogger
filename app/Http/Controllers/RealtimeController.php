@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\ProjectException;
+use App\Http\Resources\ProjectExceptionCollection;
+use Illuminate\Support\Facades\DB;
+
 
 class RealtimeController extends Controller
 {
@@ -14,10 +17,16 @@ class RealtimeController extends Controller
     
     public function index()
     {
-        $exceptions =  ProjectException::latest()->get();
+        $projectEx = ProjectException::all();
+        
+        $projectEx = $projectEx->unique(function ($item) {
+            return $item['project_unique_exception_id'];
+        });
+        
+        $exceptions = new ProjectExceptionCollection($projectEx);
 
         return view('realtime.index', [
-            'exceptions' => $exceptions
+            'exceptions' => json_encode($exceptions->toArray(''))
         ]);
     }
 }
