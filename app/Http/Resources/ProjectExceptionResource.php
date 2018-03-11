@@ -24,6 +24,7 @@ class ProjectExceptionResource extends JsonResource
             'line_number' => $this->line_number, 
             'request_uri' => $this->request_uri, 
             'server_name' => $this->server_name,
+            'project_unique_exception_id' => $this->project_unique_exception_id
         ];
     }
 }

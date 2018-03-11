@@ -26,6 +26,7 @@ class ProjectExceptionCollection extends ResourceCollection
                     'line_number' => $exception->line_number, 
                     'request_uri' => $exception->request_uri, 
                     'server_name' => $exception->server_name,
+                    'project_unique_exception_id' => $exception->project_unique_exception_id
                 ];
             }),
         ];

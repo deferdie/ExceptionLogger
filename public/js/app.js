@@ -40229,20 +40229,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         Echo.channel('exceptionChannel').listen('ExceptionWasRaised', function (e) {
 
-            var exceptionToAdd = e.exception;
-
-            // // Find item index using _.findIndex (thanks @AJ Richardson for comment)
-            var index = _.findIndex(self.exceptions, { project_unique_exception_id: exceptionToAdd.project_unique_exception_id });
-
-            // // Replace item at index using native splice
-            self.exceptions.splice(index, 1, exceptionToAdd);
-
-            console.log('Done');
+            self.updateException(e);
         });
     },
     mounted: function mounted() {
         this.exceptions = this.loadexceptions.data;
-        console.log(this.exceptions);
     },
 
 
@@ -40250,6 +40241,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             exceptions: null
         };
+    },
+    methods: {
+        updateException: function updateException(e) {
+            var exceptionToAdd = e.exception;
+
+            _.forEach(this.exceptions, function (value) {
+                if (value.project_unique_exception_id === exceptionToAdd.project_unique_exception_id) {
+                    value.exception_count = exceptionToAdd.exception_count;
+                    value.line_number = exceptionToAdd.line_number;
+                    return;
+                }
+            });
+        }
     }
 });
 
@@ -40273,9 +40277,7 @@ var render = function() {
           return _c("tr", [
             _c("td", [_vm._v(_vm._s(exception.project_id))]),
             _vm._v(" "),
-            exception.exception_count
-              ? _c("td", [_vm._v(_vm._s(exception.exception_count))])
-              : _vm._e(),
+            _c("td", [_vm._v(_vm._s(exception.exception_count))]),
             _vm._v(" "),
             _c("td", [_vm._v(_vm._s(exception.status_code))]),
             _vm._v(" "),

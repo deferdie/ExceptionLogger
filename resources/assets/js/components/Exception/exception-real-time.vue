@@ -19,7 +19,7 @@
             <tbody>
                 <tr v-for="exception in exceptions">
                     <td>{{exception.project_id}}</td>
-                    <td v-if="exception.exception_count">{{exception.exception_count}}</td>
+                    <td>{{exception.exception_count}}</td>
                     <td>{{exception.status_code}}</td>
                     <td>{{exception.url}}</td>
                     <td>{{exception.request_uri}}</td>
@@ -41,27 +41,34 @@
 
             Echo.channel('exceptionChannel').listen('ExceptionWasRaised', (e) => {
 
-                let exceptionToAdd = e.exception;
+                self.updateException(e)
 
-                // // Find item index using _.findIndex (thanks @AJ Richardson for comment)
-                var index = _.findIndex(self.exceptions, {project_unique_exception_id: exceptionToAdd.project_unique_exception_id});
-
-                // // Replace item at index using native splice
-                self.exceptions.splice(index, 1, exceptionToAdd);
-
-                console.log('Done');
             });
         },
         mounted()
         {
             this.exceptions = this.loadexceptions.data;
-            console.log(this.exceptions);
         },
 
         data: function()
         {
             return {
                 exceptions : null
+            }
+        },
+        methods: {
+            updateException: function(e)
+            {
+                let exceptionToAdd = e.exception;
+
+                _.forEach(this.exceptions, function(value) {
+                    if(value.project_unique_exception_id === exceptionToAdd.project_unique_exception_id)
+                    {
+                        value.exception_count = exceptionToAdd.exception_count;
+                        value.line_number = exceptionToAdd.line_number;
+                        return;
+                    }
+                });
             }
         }
     }
