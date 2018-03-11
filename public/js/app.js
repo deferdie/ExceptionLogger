@@ -40233,26 +40233,36 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         });
     },
     mounted: function mounted() {
-        this.exceptions = this.loadexceptions.data;
+        var self = this;
+
+        _.forEach(this.loadexceptions.data, function (value) {
+            self.exceptions.push(value);
+        });
     },
 
 
     data: function data() {
         return {
-            exceptions: null
+            exceptions: []
         };
     },
     methods: {
         updateException: function updateException(e) {
             var exceptionToAdd = e.exception;
 
-            _.forEach(this.exceptions, function (value) {
-                if (value.project_unique_exception_id === exceptionToAdd.project_unique_exception_id) {
-                    value.exception_count = exceptionToAdd.exception_count;
-                    value.line_number = exceptionToAdd.line_number;
-                    return;
-                }
-            });
+            var self = this;
+
+            // Find item index using _.findIndex (thanks @AJ Richardson for comment)
+            var index = _.findIndex(self.exceptions, { project_unique_exception_id: exceptionToAdd.project_unique_exception_id });
+
+            if (index > 0) {
+                // Replace item at index using native splice
+                self.exceptions.splice(index, 1, exceptionToAdd);
+                return;
+            }
+
+            // Replace item at index using native splice
+            self.exceptions.push(exceptionToAdd);
         }
     }
 });
