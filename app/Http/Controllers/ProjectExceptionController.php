@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Jobs\ProcessExceptionFromClient;
 use App\Project;
+use App\ProjectException;
 
 class ProjectExceptionController extends Controller
 {
@@ -15,7 +16,18 @@ class ProjectExceptionController extends Controller
 
     public function index()
     {
-    	return view('exception.index');
+		$exceptions = ProjectException::all();
+
+    	return view('exception.index', [
+			'exceptions' => $exceptions
+		]);
+	}
+	
+	public function show(ProjectException $exception)
+    {
+    	return view('exception.show', [
+			'exception' => $exception
+		]);
 	}
 	
 	public function store(Request $request)

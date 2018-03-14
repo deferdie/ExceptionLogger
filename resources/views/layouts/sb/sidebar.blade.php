@@ -10,6 +10,10 @@
             </li>
             
             <li>
+                <a href="{{route('exceptionLog')}}"><i class="fa fa-dashboard fa-fw"></i> Exception</a>
+            </li>
+            
+            <li>
                 <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Projects &amp; Applications<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
