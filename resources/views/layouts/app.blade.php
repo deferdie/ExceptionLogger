@@ -46,6 +46,9 @@
                 @include('layouts.sb.topNav')
 
                 @include('layouts.sb.sidebar')
+                
+                @yield('externalContent')
+
                 <div id="page-wrapper">
                     <div class="row">
                         @yield('content')
