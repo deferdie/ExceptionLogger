@@ -10,21 +10,6 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
-        <!-- Bootstrap Core CSS -->
-        <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-        <!-- MetisMenu CSS -->
-        <link href="/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
-
-        <!-- Custom CSS -->
-        <link href="/dist/css/sb-admin-2.css" rel="stylesheet">
-
-        <!-- Morris Charts CSS -->
-        <link href="/vendor/morrisjs/morris.css" rel="stylesheet">
-
-        <!-- Custom Fonts -->
-        <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
@@ -39,6 +24,8 @@
         @if(env('BROADCAST_DRIVER') == 'redis')
             <script src="https://cdn.socket.io/socket.io-1.3.5.js" />
         @endif
+
+        <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js" integrity="sha384-SlE991lGASHoBfWbelyBPLsUlwY1GwNDJo3jSJO04KZ33K2bwfV9YBauFfnzvynJ" crossorigin="anonymous"></script>
     </head>
     <body>
         <div id="app">
@@ -49,32 +36,16 @@
                 
                 @yield('externalContent')
 
-                <div id="page-wrapper">
-                    <div class="row">
-                        @yield('content')
-                    </div>
-                </div>
+                <main id="page-wrapper" class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+                    @yield('content')
+                </main>
             </div>
         </div>
 
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-        <!-- Bootstrap Core JavaScript -->
-        <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
-
-        <!-- Metis Menu Plugin JavaScript -->
-        <script src="/vendor/metisMenu/metisMenu.min.js"></script>
-
-        <!-- Morris Charts JavaScript -->
-        <script src="/vendor/raphael/raphael.min.js"></script>
-        <script src="/vendor/morrisjs/morris.min.js"></script>
-        <script src="/data/morris-data.js"></script>
-
-        <!-- Custom Theme JavaScript -->
-        <script src="/dist/js/sb-admin-2.js"></script>
-
         <!-- Scripts -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
         <script src="{{ asset('js/app.js') }}"></script>
     </body>
 </html>

@@ -18496,9 +18496,8 @@ module.exports = __webpack_require__(64);
 
 /***/ }),
 /* 14 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
 __webpack_require__(15);
 
 var _ = __webpack_require__(6);
@@ -40222,6 +40221,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['loadexceptions'],
@@ -40278,29 +40279,31 @@ var render = function() {
   return _c("div", [
     _vm._m(0),
     _vm._v(" "),
-    _c("table", { staticClass: "table table-striped table-responsive" }, [
-      _vm._m(1),
-      _vm._v(" "),
-      _c(
-        "tbody",
-        _vm._l(_vm.exceptions, function(exception) {
-          return _c("tr", [
-            _c("td", [_vm._v(_vm._s(exception.project_id))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(exception.exception_count))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(exception.status_code))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(exception.url))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(exception.request_uri))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(exception.line_number))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(exception.server_name))])
-          ])
-        })
-      )
+    _c("div", { staticClass: "table-responsive" }, [
+      _c("table", { staticClass: "table table-striped" }, [
+        _vm._m(1),
+        _vm._v(" "),
+        _c(
+          "tbody",
+          _vm._l(_vm.exceptions, function(exception) {
+            return _c("tr", [
+              _c("td", [_vm._v(_vm._s(exception.project_id))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(exception.exception_count))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(exception.status_code))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(exception.url))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(exception.request_uri))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(exception.line_number))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(exception.server_name))])
+            ])
+          })
+        )
+      ])
     ])
   ])
 }
