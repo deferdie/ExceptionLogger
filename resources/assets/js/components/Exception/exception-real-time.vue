@@ -4,7 +4,8 @@
             <h4>Realtime Exceptions</h4>
         </div>
 
-        <table class="table table-striped table-responsive">
+        <div class="table-responsive">
+            <table class="table table-striped">
             <thead>
                 <tr>
                     <td>Project</td>
@@ -28,6 +29,7 @@
                 </tr>
             </tbody>
         </table>
+        </div>
 
     </div>
 </template>
