@@ -16,7 +16,7 @@ class ProjectExceptionController extends Controller
 
     public function index()
     {
-		$exceptions = ProjectException::all();
+		$exceptions = ProjectException::paginate(15);
 
     	return view('exception.index', [
 			'exceptions' => $exceptions
