@@ -1,0 +1,4 @@
+docker build -f app/Dockerfile -t exceptionmanager/app:latest ./app
+docker build -f nginx/Dockerfile -t exceptionmanager/nginx:latest ./nginx
+docker build -f php/Dockerfile -t exceptionmanager/php:latest ./php
+docker build -f node/Dockerfile -t exceptionmanager/node:latest ./node

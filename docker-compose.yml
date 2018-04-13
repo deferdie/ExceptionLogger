@@ -1,0 +1,81 @@
+version: '2'
+services:
+  app:
+    build:
+      context: ./docker/app
+      dockerfile: Dockerfile
+    image: exceptionmanager/app
+    volumes:
+      - '.:/var/www/html'
+    networks:
+      - fdnet
+    container_name: exceptionmanager_app
+  php:
+    build:
+      context: ./docker/php
+      dockerfile: Dockerfile
+    image: exceptionmanager/php
+    volumes:
+      - '.:/var/www/html'
+    networks:
+      - fdnet
+      - reverseproxy_deferdie_reverse_proxy
+    container_name: exceptionmanager_php
+  nginx:
+    build:
+      context: ./docker/nginx
+      dockerfile: Dockerfile
+    image: exceptionmanager/nginx
+    volumes:
+      - '.:/var/www/html'
+    ports:
+      - '8090:80'
+    networks:
+      - fdnet
+      - reverseproxy_deferdie_reverse_proxy
+    container_name: exceptionmanager_nginx
+    environment:
+      - VIRTUAL_HOST=exceptionmanager.test
+      - VIRTUAL_PORT=80
+  node:
+    build:
+      context: ./docker/node
+      dockerfile: Dockerfile
+    image: exceptionmanager/node
+    volumes:
+      - '.:/var/www/html'
+    networks:
+      - fdnet
+    container_name: exceptionmanager_node
+  mysql:
+    image: 'mysql:5.7'
+    ports:
+      - '8070:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: homestead
+      MYSQL_USER: homestead
+      MYSQL_PASSWORD: secret
+    volumes:
+      - 'mysqldata:/var/lib/mysql'
+    networks:
+      - fdnet
+    container_name: exceptionmanager_mysql
+  redis:
+    image: 'redis:alpine'
+    volumes:
+      - 'redisdata:/data'
+    networks:
+      - fdnet
+    container_name: exceptionmanager_redis
+networks:
+  fdnet:
+    driver: bridge
+  reverseproxy_deferdie_reverse_proxy:
+    external:
+      name: reverseproxy_deferdie_reverse_proxy
+volumes:
+  mysqldata:
+    driver: local
+  redisdata:
+    driver: local

@@ -10021,3 +10021,12 @@ body {
   color: #fff;
 }
 
+.card {
+  color: #000;
+  margin-bottom: 15px;
+}
+
+.col-form-label {
+  color: #000;
+}
+
