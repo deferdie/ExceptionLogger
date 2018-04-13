@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h4>Manage project status codes</h4>
+        <h5>Manage project status codes</h5>
 
         <div class="row">
             <div class="col-md-12">
@@ -76,7 +76,7 @@
                             </td>
                             
                             <td>
-                                <button class="btn btn-primary" @click="editMode = true" v-show="!editMode">
+                                <button class="btn btn-primary" @click="enableEditMode(statusCode)" data-toggle="modal" data-target="#editProject">
                                     Edit
                                 </button>
                                 <button class="btn btn-primary" @click="editStatus(statusCode)" v-show="editMode">
@@ -114,6 +114,32 @@
                 </button>
             </div>
         </div>
+
+        <!-- Edit project status code modal -->
+        <modal id="editProject" :showModal="editMode">
+            <div slot="heading">Ferdie</div>
+            <div slot="footer">Ferdie</div>
+            
+            <div v-if="statusUpdating != null">
+                
+                <div class="form-group">
+                    <lable for="error_code">Error Code</lable>
+                    <input type="text" id="error_code" v-model="statusUpdating.code" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="errors_per_miniute">Errors per miniute</label>
+                    <input id="errors_per_miniute" type="text" v-model="statusUpdating.errors" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                    <label for="time_to_notify">Time to notify</label>
+                    <input id="time_to_notify" type="text" v-model="statusUpdating.timeToNotify" class="form-control">
+                </div>
+
+
+            </div>
+        </modal>
     </div>
 </template>
 
@@ -142,7 +168,8 @@
                     slack: null,
                     sms: null,
                 },
-                editMode : false
+                editMode : false,
+                statusUpdating: null
             }
         },
 
@@ -173,10 +200,6 @@
             {
                 let self = this;
 
-                this.editMode = true;
-
-                console.log(statusCode);
-
                 axios.patch('/project/'+self.project+'/statusCode/'+statusCode.id, {
                     'code': statusCode.code,
                     'timeToNotify': statusCode.timeToNotify,
@@ -197,6 +220,12 @@
                 });
 
                 this.editMode = false;
+            },
+            enableEditMode(statusCodetoUpdate)
+            {
+                this.editMode = true;
+
+                this.statusUpdating = statusCodetoUpdate;
             }
         }
     }

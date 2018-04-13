@@ -17,7 +17,7 @@ class RealtimeController extends Controller
     
     public function index()
     {
-        $projectEx = ProjectException::all();
+        $projectEx = ProjectException::latest()->get();
         
         $projectEx = $projectEx->unique(function ($item) {
             return $item['project_unique_exception_id'];

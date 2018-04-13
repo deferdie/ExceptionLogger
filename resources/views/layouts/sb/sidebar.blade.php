@@ -21,9 +21,6 @@
         <a class="nav-link" href="{{route('projects')}}">Manage projects</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{route('createProject')}}">Create project</a>
-      </li>
-      <li class="nav-item">
         <a class="nav-link" href="{{route('applications')}}">Manage application</a>
       </li>
     </ul>

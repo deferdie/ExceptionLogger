@@ -1,11 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
-	
+	<div class="action-bar col-md-12">
+		<a href="{{route('createProject')}}">
+			<button class="btn btn-primary btn-sm">
+				Create Project
+			</button>
+		</a>
+	</div>
 	@if(count($projects) == 0)
 	   	<h4>
 	   		No projects created
-	   	</h4>
+		</h4>
 	@else
 		<table class="table table-hover">
 		    <thead>

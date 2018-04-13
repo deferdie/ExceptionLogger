@@ -32,6 +32,15 @@ Vue.component(
     require('./components/StatusCodes/status-code.vue')
 );
 
+
+// Utilities
+
+// Modal
+Vue.component(
+    'modal',
+    require('./components/Utilities/modal.vue')
+);
+
 const app = new Vue({
     el: '#app'
 });

@@ -2,9 +2,9 @@
 
 @section('content')
 
-	<p>
+	<h2>
 		{{$project->name}}
-	</p>
+	</h2>
 
 	<status-code :project="{{$project->id}}" :createdstatuscodes="{{$project->statusCodes}}"></status-code>
 
